@@ -6,7 +6,7 @@ import android.content.Intent;
 
 public class AlarmReceiver extends BroadcastReceiver {
 
-    private Notification mNotification;
+    private Reminder mReminder;
 
     /**
      * Runs when the broadcast is received,
@@ -15,7 +15,7 @@ public class AlarmReceiver extends BroadcastReceiver {
      */
     @Override
     public void onReceive(Context context, Intent intent) {
-        this.mNotification = new Notification(context, intent.getExtras().getString("mReminderTitle"), intent.getExtras().getString("mReminderText"));
-        this.mNotification.showNotification();
+        this.mReminder = new Reminder(context, intent.getExtras().getString("mReminderTitle"), intent.getExtras().getString("mReminderText"));
+        this.mReminder.showNotification();
     }
 }
