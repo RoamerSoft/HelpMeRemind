@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.icu.text.DateFormat;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
@@ -46,17 +47,41 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
      */
     private Date mDateAndTime;
 
+    /**
+     * Lifecycle callback keys
+     */
+    private static final String LIFECYCLE_CALLBACKS_REMINDER_TITLE_KEY = "mReminderTitle";
+    private static final String LIFECYCLE_CALLBACKS_REMINDER_TEXT_KEY = "mReminderText";
+    private static final String LIFECYCLE_CALLBACKS_REMINDER_INFO_KEY = "mReminderInfoTextView";
+    private static final String LIFECYCLE_CALLBACKS_DATE_TIME__KEY = "mDateAndTime";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.mReminderInfoTextView = findViewById(R.id.reminder_info);
         this.mReminderTitle = findViewById(R.id.reminder_title);
         this.mReminderText = findViewById(R.id.reminder_text);
+        this.mReminderInfoTextView = findViewById(R.id.reminder_info);
+
+        if (savedInstanceState != null){
+            this.mReminderTitle.getEditText().setText(savedInstanceState.getString(LIFECYCLE_CALLBACKS_REMINDER_TITLE_KEY));
+            this.mReminderText.getEditText().setText(savedInstanceState.getString(LIFECYCLE_CALLBACKS_REMINDER_TEXT_KEY));
+            this.mDateAndTime = new Date(savedInstanceState.getLong(LIFECYCLE_CALLBACKS_DATE_TIME__KEY));
+            this.mReminderInfoTextView.setText(savedInstanceState.getString(LIFECYCLE_CALLBACKS_REMINDER_INFO_KEY));
+        }
 
         FloatingTextButton callButton = (FloatingTextButton) findViewById(R.id.add_reminder_button);
         callButton.setOnClickListener(this);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(LIFECYCLE_CALLBACKS_REMINDER_TITLE_KEY, this.mReminderTitle.getEditText().getText().toString());
+        outState.putString(LIFECYCLE_CALLBACKS_REMINDER_TEXT_KEY, this.mReminderText.getEditText().getText().toString());
+        outState.putString(LIFECYCLE_CALLBACKS_REMINDER_INFO_KEY, this.mReminderInfoTextView.getText().toString());
+        outState.putLong(LIFECYCLE_CALLBACKS_DATE_TIME__KEY, this.mDateAndTime.getTime());
     }
 
     /**
