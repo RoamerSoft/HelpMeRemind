@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.icu.text.DateFormat;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
