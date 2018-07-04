@@ -1,14 +1,15 @@
 <resources>
-    <string name="app_name">RemindMeOf</string>
+    <string name="app_name">Help Me Remind</string>
 
-    <string name="reminder_title">Reminder Title</string>
-    <string name="reminder_text">Reminder Note (optional)</string>
+    <string name="reminder_input_title">Title</string>
+    <string name="reminder_input_text">Note (optional)</string>
 
-    <string name="button_bar_title">Remind me in:</string>
+    <string name="button_bar_title">Show reminder at:</string>
 
     <string name="button_bar_button1">1 Hour</string>
-    <string name="button_bar_button2">6 Hours</string>
-    <string name="button_bar_button3">Specific</string>
+    <string name="button_bar_button2">3 Hours</string>
+    <string name="button_bar_button3">6 Hours</string>
+    <string name="button_bar_button4">Specific</string>
 
     <string name="add_reminder_button">Add Reminder</string>
 
@@ -18,6 +19,10 @@
     <string name="channel_description">channel_description</string>
 
     <string name="notification_set_message">Notification is set</string>
+
+
+    <string name="reminder_example_title">Reminder Title</string>
+    <string name="reminder_example_text">Reminder Note &#8230;</string>
 
 
 </resources>

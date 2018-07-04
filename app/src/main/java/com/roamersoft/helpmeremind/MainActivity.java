@@ -11,6 +11,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
     private TextInputLayout mReminderText;
     private TextView mReminderInfoTextView;
     private View mViewToShowFragmentsOn;
+    private TextView mReminderExampleTitle;
+    private TextView mReminderExampleText;
 
     /**
      * Date and time in ints
@@ -59,9 +62,11 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.mReminderTitle = findViewById(R.id.reminder_title);
-        this.mReminderText = findViewById(R.id.reminder_text);
+        this.mReminderTitle = findViewById(R.id.reminder_input_title);
+        this.mReminderText = findViewById(R.id.reminder_input_text);
         this.mReminderInfoTextView = findViewById(R.id.reminder_info);
+        this.mReminderExampleTitle = findViewById(R.id.reminder_example_title);
+        this.mReminderExampleText = findViewById(R.id.reminder_example_text);
 
         if (savedInstanceState != null){
             this.mReminderTitle.getEditText().setText(savedInstanceState.getString(LIFECYCLE_CALLBACKS_REMINDER_TITLE_KEY));
@@ -88,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
      * @param v The view where the request came from.
      */
     public void onButtonBarButton1Pressed(View v) {
+        this.colorPressedButtonTextByView(v);
         this.mDateAndTime = this.addHoursToCurrentTime(1);
         this.setReminderInfoTextView();
     }
@@ -97,7 +103,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
      * @param v The view where the request came from.
      */
     public void onButtonBarButton2Pressed(View v) {
-        this.mDateAndTime = this.addHoursToCurrentTime(6);
+        this.colorPressedButtonTextByView(v);
+        this.mDateAndTime = this.addHoursToCurrentTime(3);
         this.setReminderInfoTextView();
     }
 
@@ -106,6 +113,17 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
      * @param v The view where the request came from.
      */
     public void onButtonBarButton3Pressed(View v) {
+        this.colorPressedButtonTextByView(v);
+        this.mDateAndTime = this.addHoursToCurrentTime(6);
+        this.setReminderInfoTextView();
+    }
+
+    /**
+     * onClickListener for the fourth button in the button bar.
+     * @param v The view where the request came from.
+     */
+    public void onButtonBarButton4Pressed(View v) {
+        this.colorPressedButtonTextByView(v);
         this.mViewToShowFragmentsOn = v;
         this.showDatePickerDialog(mViewToShowFragmentsOn);
     }
@@ -117,6 +135,28 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
     private void showDatePickerDialog(View v) {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getFragmentManager(), "datePicker");
+    }
+
+    /**
+     * Sets the text color of all buttons in the button bar to default
+     * and sets the button from the given view to colorAccent.
+     * @param v The view where the request came from.
+     */
+    private void colorPressedButtonTextByView(View v) {
+        Button otherButton = findViewById(R.id.button_bar_button1);
+        otherButton.setTextColor(getResources().getColor(R.color.colorTextAndIcons));
+
+        otherButton = findViewById(R.id.button_bar_button2);
+        otherButton.setTextColor(getResources().getColor(R.color.colorTextAndIcons));
+
+        otherButton = findViewById(R.id.button_bar_button3);
+        otherButton.setTextColor(getResources().getColor(R.color.colorTextAndIcons));
+
+        otherButton = findViewById(R.id.button_bar_button4);
+        otherButton.setTextColor(getResources().getColor(R.color.colorTextAndIcons));
+
+        Button button = (Button) v;
+        button.setTextColor(getResources().getColor(R.color.colorAccent));
     }
 
     /**
