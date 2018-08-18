@@ -3,9 +3,11 @@ package com.roamersoft.helpmeremind;
 import android.app.AlarmManager;
 import android.app.DialogFragment;
 import android.app.PendingIntent;
+import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.icu.text.DateFormat;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -77,6 +79,27 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
 
         FloatingTextButton callButton = (FloatingTextButton) findViewById(R.id.add_reminder_button);
         callButton.setOnClickListener(this);
+
+        //    TODO: Just for testing
+        new DatabaseTask().execute();
+    }
+
+    //    TODO: Just for testing
+    private class DatabaseTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                    AppDatabase.class, "database-name").build();
+
+            Alarm alarm = new Alarm();
+            alarm.setDateTime("Test_Date2");
+            alarm.setTitle("Test_Title2");
+            alarm.setNote("Test_Note2");
+
+            db.alarmDao().insert(alarm);
+
+            return null;
+        }
     }
 
     @Override
@@ -209,17 +232,17 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
      */
     @Override
     public void onClick(View v) {
-        this.scheduleReminder(this.mReminderTitle.getEditText().getText().toString(), this.mReminderText.getEditText().getText().toString());
+        this.scheduleReminder(this.mReminderTitle.getEditText().getText().toString(), this.mReminderText.getEditText().getText().toString(), this.mDateAndTime.getTime());
 
         this.showToastOnTop(getString(R.string.notification_set_message));
     }
 
     /**
-     * Schedules the notification.
+     * Schedules the notification with an alarm.
      * @param reminderTitle The reminder title for in the notification.
      * @param reminderText The reminder text for in the notification.
      */
-    private void scheduleReminder (String reminderTitle, String reminderText) {
+    private void scheduleReminder (String reminderTitle, String reminderText, Long reminderDateTime) {
         //alarm service
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
@@ -232,7 +255,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
         PendingIntent broadcast = PendingIntent.getBroadcast(this, 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         //set alarm
-        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, this.mDateAndTime.getTime(), broadcast);
+        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, reminderDateTime, broadcast);
     }
 
     /**
