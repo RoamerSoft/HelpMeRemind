@@ -12,11 +12,14 @@ public interface AlarmDao {
     @Query("SELECT * FROM alarm")
     List<Alarm> getAll();
 
-    @Query("SELECT * FROM alarm WHERE id = (:alarmId)")
-    List<Alarm> loadAllByIds(int alarmId);
+    @Query("SELECT * FROM alarm WHERE id = (:alarmId) LIMIT 1")
+    Alarm getById(int alarmId);
+
+    @Query("DELETE FROM alarm WHERE id = (:alarmId)")
+    void deleteById(int alarmId);
 
     @Insert
-    void insert(Alarm alarm);
+    long insert(Alarm alarm);
 
     @Delete
     void delete(Alarm alarm);

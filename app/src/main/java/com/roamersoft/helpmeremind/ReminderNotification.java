@@ -1,8 +1,12 @@
 package com.roamersoft.helpmeremind;
 
+import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.arch.persistence.room.Room;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
@@ -10,7 +14,9 @@ import android.support.v4.app.NotificationManagerCompat;
 import java.util.Date;
 import java.util.UUID;
 
-public class Reminder {
+import static android.content.Context.ALARM_SERVICE;
+
+public class ReminderNotification {
 
     private Context mContext;
     private String mChannelId;
@@ -19,16 +25,20 @@ public class Reminder {
     private String mReminderTitle;
     private String mReminderText;
 
-    public Reminder(Context context, String notificationTitle, String notificationContent) {
+    public ReminderNotification(Context context, String notificationTitle, String notificationContent, int notificationId) {
 
         this.mContext = context;
         this.mReminderTitle = notificationTitle;
         this.mReminderText = notificationContent;
         this.mChannelId = UUID.randomUUID().toString();
-        this.mNotificationId = this.createUniqueID();
+        this.mNotificationId = notificationId;
 
         this.createNotificationChannel();
         this.createNotification();
+    }
+
+    public int getmNotificationId() {
+        return mNotificationId;
     }
 
     /**
@@ -81,5 +91,27 @@ public class Reminder {
         Date date = new Date();
         int id = (int) date.getTime();
         return id;
+    }
+
+    /**
+     * Schedules the notification with an alarm.
+     * @param context
+     * @param alarm
+     */
+    public static void scheduleReminderNotification (Context context, Alarm alarm) {
+        //alarm service
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+
+        //Add data
+        Intent intent = new Intent(context,  AlarmReceiver.class);
+        intent.putExtra("reminderId", alarm.getId());
+        intent.putExtra("reminderTitle", alarm.getTitle());
+        intent.putExtra("reminderText", alarm.getNote());
+
+        //create broadcast
+        PendingIntent broadcast = PendingIntent.getBroadcast(context, 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        //set alarm
+        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarm.getDateTime(), broadcast);
     }
 }

@@ -10,7 +10,7 @@ public class Alarm {
     private int id;
 
     @ColumnInfo(name = "date_time")
-    private String dateTime;
+    private Long dateTime;
 
     @ColumnInfo(name = "title")
     private String title;
@@ -26,11 +26,11 @@ public class Alarm {
         this.id = id;
     }
 
-    public String getDateTime() {
+    public Long getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(String dateTime) {
+    public void setDateTime(Long dateTime) {
         this.dateTime = dateTime;
     }
 
