@@ -1,4 +1,4 @@
-package com.roamersoft.helpmeremind;
+package com.roamersoft.helpmeremind.fragments;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;

@@ -1,8 +1,8 @@
-package com.roamersoft.helpmeremind.tasks;
+package com.roamersoft.helpmeremind.aSyncTasks;
 
 import android.content.Context;
 
-import com.roamersoft.helpmeremind.Alarm;
+import com.roamersoft.helpmeremind.models.Alarm;
 
 public class SaveReminderWrapper {
     public Context sContext;

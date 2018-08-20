@@ -1,9 +1,11 @@
-package com.roamersoft.helpmeremind;
+package com.roamersoft.helpmeremind.database;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
+
+import com.roamersoft.helpmeremind.models.Alarm;
 
 import java.util.List;
 

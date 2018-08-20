@@ -1,12 +1,12 @@
-package com.roamersoft.helpmeremind;
+package com.roamersoft.helpmeremind.broadcastReceivers;
 
-import android.arch.persistence.room.Room;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.roamersoft.helpmeremind.tasks.DeleteReminderParams;
-import com.roamersoft.helpmeremind.tasks.DeleteReminderTask;
+import com.roamersoft.helpmeremind.ReminderNotification;
+import com.roamersoft.helpmeremind.aSyncTasks.DeleteReminderParams;
+import com.roamersoft.helpmeremind.aSyncTasks.DeleteReminderTask;
 
 public class AlarmReceiver extends BroadcastReceiver {
     /**

@@ -4,12 +4,14 @@ import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
+
+import com.roamersoft.helpmeremind.broadcastReceivers.AlarmReceiver;
+import com.roamersoft.helpmeremind.models.Alarm;
 
 import java.util.Date;
 import java.util.UUID;

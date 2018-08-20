@@ -8,12 +8,15 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.roamersoft.helpmeremind.tasks.SaveReminderParams;
-import com.roamersoft.helpmeremind.tasks.SaveReminderTask;
+import com.roamersoft.helpmeremind.aSyncTasks.SaveReminderParams;
+import com.roamersoft.helpmeremind.aSyncTasks.SaveReminderTask;
+import com.roamersoft.helpmeremind.fragments.DatePickerFragment;
+import com.roamersoft.helpmeremind.fragments.TimePickerFragment;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -85,7 +88,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
         outState.putString(LIFECYCLE_CALLBACKS_REMINDER_TITLE_KEY, this.mReminderTitle.getEditText().getText().toString());
         outState.putString(LIFECYCLE_CALLBACKS_REMINDER_TEXT_KEY, this.mReminderText.getEditText().getText().toString());
         outState.putString(LIFECYCLE_CALLBACKS_REMINDER_INFO_KEY, this.mReminderInfoTextView.getText().toString());
-        outState.putLong(LIFECYCLE_CALLBACKS_DATE_TIME__KEY, this.mDateAndTime.getTime());
+
+        if (this.mDateAndTime != null){
+            outState.putLong(LIFECYCLE_CALLBACKS_DATE_TIME__KEY, this.mDateAndTime.getTime());
+        }
     }
 
     /**
@@ -156,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
         otherButton.setTextColor(getResources().getColor(R.color.colorTextAndIcons));
 
         Button button = (Button) v;
-        button.setTextColor(getResources().getColor(R.color.colorAccent));
+        button.setTextColor(getResources().getColor(R.color.pressedButton));
     }
 
     /**

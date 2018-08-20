@@ -1,4 +1,4 @@
-package com.roamersoft.helpmeremind;
+package com.roamersoft.helpmeremind.models;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
@@ -48,5 +48,10 @@ public class Alarm {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    @Override
+    public String toString() {
+        return "Alarm: " + this.id + " " + this.title + " " + this.note + " " + this.dateTime;
     }
 }
