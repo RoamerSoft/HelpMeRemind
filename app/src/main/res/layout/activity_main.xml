@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="true"
+    app:autoSizeTextType="uniform">
 
     <View
         android:id="@+id/reminder_container"
@@ -149,12 +150,13 @@
 
     <LinearLayout
         android:id="@+id/button_bar"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="50dp"
         android:background="@drawable/shape"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -170,6 +172,7 @@
             android:layout_weight="1"
             android:onClick="onButtonBarButton1Pressed"
             android:text="@string/button_bar_button1"
+            android:singleLine="true"
             android:textColor="@color/colorTextAndIcons" />
 
         <Button
@@ -180,6 +183,7 @@
             android:layout_weight="1"
             android:onClick="onButtonBarButton2Pressed"
             android:text="@string/button_bar_button2"
+            android:singleLine="true"
             android:textColor="@color/colorTextAndIcons" />
 
 
@@ -191,6 +195,7 @@
             android:layout_weight="1"
             android:onClick="onButtonBarButton3Pressed"
             android:text="@string/button_bar_button3"
+            android:singleLine="true"
             android:textColor="@color/colorTextAndIcons" />
 
         <Button
@@ -201,6 +206,7 @@
             android:layout_weight="1"
             android:onClick="onButtonBarButton4Pressed"
             android:text="@string/button_bar_button4"
+            android:singleLine="true"
             android:textColor="@color/colorTextAndIcons" />
 
     </LinearLayout>

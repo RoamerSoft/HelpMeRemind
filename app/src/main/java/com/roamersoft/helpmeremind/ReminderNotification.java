@@ -111,9 +111,10 @@ public class ReminderNotification {
         intent.putExtra("reminderText", alarm.getNote());
 
         //create broadcast
-        PendingIntent broadcast = PendingIntent.getBroadcast(context, 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent broadcast = PendingIntent.getBroadcast(context, alarm.getId(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         //set alarm
         alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarm.getDateTime(), broadcast);
+
     }
 }
