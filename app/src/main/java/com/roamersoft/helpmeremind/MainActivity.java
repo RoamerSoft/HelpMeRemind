@@ -6,6 +6,9 @@ import android.icu.text.DateFormat;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -37,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
     private View mViewToShowFragmentsOn;
     private TextView mReminderExampleTitle;
     private TextView mReminderExampleText;
+    private TextView mReminderExampleTime;
 
     /**
      * Date and time in ints
@@ -59,6 +63,9 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
     private static final String LIFECYCLE_CALLBACKS_REMINDER_TEXT_KEY = "mReminderText";
     private static final String LIFECYCLE_CALLBACKS_REMINDER_INFO_KEY = "mReminderInfoTextView";
     private static final String LIFECYCLE_CALLBACKS_DATE_TIME__KEY = "mDateAndTime";
+    private static final String LIFECYCLE_CALLBACKS_REMINDER_EXAMPLE_TITLE__KEY = "mReminderExampleTitle";
+    private static final String LIFECYCLE_CALLBACKS_REMINDER_EXAMPLE_TEXT_KEY = "mReminderExampleText";
+    private static final String LIFECYCLE_CALLBACKS_REMINDER_EXAMPLE_TIME_KEY = "mReminderExampleTime";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,16 +77,61 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
         this.mReminderInfoTextView = findViewById(R.id.reminder_info);
         this.mReminderExampleTitle = findViewById(R.id.reminder_example_title);
         this.mReminderExampleText = findViewById(R.id.reminder_example_text);
+        this.mReminderExampleTime = findViewById(R.id.notificationTime);
 
         if (savedInstanceState != null){
             this.mReminderTitle.getEditText().setText(savedInstanceState.getString(LIFECYCLE_CALLBACKS_REMINDER_TITLE_KEY));
             this.mReminderText.getEditText().setText(savedInstanceState.getString(LIFECYCLE_CALLBACKS_REMINDER_TEXT_KEY));
             this.mDateAndTime = new Date(savedInstanceState.getLong(LIFECYCLE_CALLBACKS_DATE_TIME__KEY));
             this.mReminderInfoTextView.setText(savedInstanceState.getString(LIFECYCLE_CALLBACKS_REMINDER_INFO_KEY));
+            this.mReminderExampleTitle.setText(savedInstanceState.getString(LIFECYCLE_CALLBACKS_REMINDER_EXAMPLE_TITLE__KEY));
+            this.mReminderExampleText.setText(savedInstanceState.getString(LIFECYCLE_CALLBACKS_REMINDER_EXAMPLE_TEXT_KEY));
+            this.mReminderExampleTime.setText(savedInstanceState.getString(LIFECYCLE_CALLBACKS_REMINDER_EXAMPLE_TIME_KEY));
         }
 
+        //OnChangeListeners
         FloatingTextButton callButton = (FloatingTextButton) findViewById(R.id.add_reminder_button);
         callButton.setOnClickListener(this);
+        this.mReminderTitle.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                changeReminderExampleTitle(s);
+            }
+        });
+        this.mReminderText.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                changeReminderExampleText(s);
+            }
+        });
+    }
+
+    private void changeReminderExampleTitle(Editable s) {
+        this.mReminderExampleTitle.setText(s);
+    }
+
+    private void changeReminderExampleText(Editable s) {
+        this.mReminderExampleText.setText(s);
     }
 
     @Override
@@ -88,6 +140,18 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
         outState.putString(LIFECYCLE_CALLBACKS_REMINDER_TITLE_KEY, this.mReminderTitle.getEditText().getText().toString());
         outState.putString(LIFECYCLE_CALLBACKS_REMINDER_TEXT_KEY, this.mReminderText.getEditText().getText().toString());
         outState.putString(LIFECYCLE_CALLBACKS_REMINDER_INFO_KEY, this.mReminderInfoTextView.getText().toString());
+
+        if (this.mReminderExampleTitle != null) {
+            outState.putString(LIFECYCLE_CALLBACKS_REMINDER_EXAMPLE_TITLE__KEY, this.mReminderExampleTitle.getText().toString());
+        }
+
+        if (this.mReminderExampleText != null) {
+            outState.putString(LIFECYCLE_CALLBACKS_REMINDER_EXAMPLE_TEXT_KEY, this.mReminderExampleText.getText().toString());
+        }
+
+        if (this.mReminderExampleTime != null) {
+            outState.putString(LIFECYCLE_CALLBACKS_REMINDER_EXAMPLE_TIME_KEY, this.mReminderExampleTime.getText().toString());
+        }
 
         if (this.mDateAndTime != null){
             outState.putLong(LIFECYCLE_CALLBACKS_DATE_TIME__KEY, this.mDateAndTime.getTime());
@@ -100,8 +164,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
      */
     public void onButtonBarButton1Pressed(View v) {
         this.colorPressedButtonTextByView(v);
-        this.mDateAndTime = this.addHoursToCurrentTime(1);
-        this.setReminderInfoTextView();
+        this.mDateAndTime = this.addHoursToCurrentTime(0);
+        this.mReminderExampleTime.setText(this.getTimeStringFromDate(this.mDateAndTime));
     }
 
     /**
@@ -110,8 +174,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
      */
     public void onButtonBarButton2Pressed(View v) {
         this.colorPressedButtonTextByView(v);
-        this.mDateAndTime = this.addHoursToCurrentTime(3);
-        this.setReminderInfoTextView();
+        this.mDateAndTime = this.addHoursToCurrentTime(1);
+        this.mReminderExampleTime.setText(this.getTimeStringFromDate(this.mDateAndTime));
     }
 
     /**
@@ -120,8 +184,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
      */
     public void onButtonBarButton3Pressed(View v) {
         this.colorPressedButtonTextByView(v);
-        this.mDateAndTime = this.addHoursToCurrentTime(6);
-        this.setReminderInfoTextView();
+        this.mDateAndTime = this.addHoursToCurrentTime(3);
+        this.mReminderExampleTime.setText(this.getTimeStringFromDate(this.mDateAndTime));
     }
 
     /**
@@ -198,7 +262,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
         this.mHourOfDay = hourOfDay;
         this.mMinute = minute;
         this.mDateAndTime = this.convertToDateWithTime(this.mYear, this.mMonth, this.mDay, this.mHourOfDay, this.mMinute);
-        this.setReminderInfoTextView();
+        this.mReminderExampleTime.setText(this.getTimeStringFromDate(this.mDateAndTime));
     }
 
     /**
@@ -232,6 +296,46 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
         calendar.add(Calendar.HOUR_OF_DAY, hours);
 
         return calendar.getTime();
+    }
+
+    /**
+     * Returns a time string when the given date is today
+     * Returns a date and time string when the given date is not today.
+     * @param date Date object to convert.
+     * @return Returns a String.
+     */
+    private String getTimeStringFromDate(Date date) {
+        if (checkIfDatesAreIdentical(date, this.addHoursToCurrentTime(0))){
+            SimpleDateFormat localDateFormat = new SimpleDateFormat("HH:mm");
+            return localDateFormat.format(date);
+        } else {
+            SimpleDateFormat localDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            return localDateFormat.format(date);
+        }
+    }
+
+    /**
+     * Returns a date string.
+     * @param date Date object to convert.
+     * @return Returns a String.
+     */
+    private String getDateStringFromDate(Date date) {
+        SimpleDateFormat localDateFormat = new SimpleDateFormat("yyyy.MM.dd");
+        return localDateFormat.format(date);
+    }
+
+    /**
+     * Checks if the given dates are identical.
+     * @param date1 First date.
+     * @param date2 Second date.
+     * @return Returns a boolean.
+     */
+    private Boolean checkIfDatesAreIdentical(Date date1, Date date2){
+        if (this.getDateStringFromDate(date1).equals(this.getDateStringFromDate(date2))){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
