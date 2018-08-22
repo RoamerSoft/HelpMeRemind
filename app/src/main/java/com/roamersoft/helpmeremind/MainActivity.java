@@ -1,6 +1,7 @@
 package com.roamersoft.helpmeremind;
 
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.res.Resources;
 import android.icu.text.DateFormat;
 import android.os.Bundle;
@@ -282,7 +283,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
     public void onClick(View v) {
         new SaveReminderTask().execute(new SaveReminderParams(this, this.mReminderTitle.getEditText().getText().toString(), this.mReminderText.getEditText().getText().toString(), this.mDateAndTime));
 
-        this.showToastOnTop(getString(R.string.notification_set_message));
+        this.showToastOnTop(this, getString(R.string.notification_set_message));
         }
 
     /**
@@ -339,11 +340,12 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
     }
 
     /**
-     * Shows a toast at the top of the screen
+     * Shows a toast at the top of the screen.
+     * @param context The context to use.
      * @param text The text that have to be showed.
      */
-    private void showToastOnTop(String text){
-        Toast toast= Toast.makeText(getApplicationContext(),
+    public static void showToastOnTop(Context context, String text){
+        Toast toast= Toast.makeText(context,
                 text, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 15);
         toast.show();

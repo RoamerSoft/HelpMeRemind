@@ -63,17 +63,35 @@ public class ReminderNotification {
      * When no notification text is given, the notification will then only show the title.
      */
     private void createNotification(){
+        Intent notifyIntent = new Intent(this.mContext, NotificationPressedActivity.class);
+
+        notifyIntent.putExtra("mNotificationId", this.mNotificationId);
+
+        // Set the Activity to start in a new, empty task
+        notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+        // Create the PendingIntent
+        PendingIntent notifyPendingIntent = PendingIntent.getActivity(
+                this.mContext, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT
+        );
+
         if (mReminderText == null || mReminderText.equals("")) {
             this.mBuilder = new NotificationCompat.Builder(this.mContext, this.mChannelId)
                     .setSmallIcon(R.drawable.ic_notification_icon)
                     .setContentTitle(this.mReminderTitle)
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setAutoCancel(true)
+                    .setContentIntent(notifyPendingIntent);
+
         } else {
             this.mBuilder = new NotificationCompat.Builder(this.mContext, this.mChannelId)
                     .setSmallIcon(R.drawable.ic_notification_icon)
                     .setContentTitle(this.mReminderTitle)
                     .setContentText(this.mReminderText)
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setAutoCancel(true)
+                    .setContentIntent(notifyPendingIntent);
         }
     }
 

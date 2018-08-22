@@ -19,6 +19,8 @@ public class DeleteReminderTask extends AsyncTask<DeleteReminderParams, Void, Vo
 
         db.alarmDao().deleteById(deleteReminderParams[0].dReminderId);
 
+        db.close();
+
         return null;
     }
 }

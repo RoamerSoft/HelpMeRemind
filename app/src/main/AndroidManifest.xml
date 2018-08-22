@@ -20,6 +20,14 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:theme="@android:style/Theme.NoDisplay"
+            android:name=".NotificationPressedActivity"
+            android:launchMode="singleTask"
+            android:taskAffinity=""
+            android:excludeFromRecents="true">
+        </activity>
+
         <receiver android:name=".broadcastReceivers.AlarmReceiver"/>
 
         <receiver android:name=".broadcastReceivers.OnBootReceiver"  android:exported="true">

@@ -30,6 +30,8 @@ public class RescheduleAllRemindersTask extends AsyncTask<Context, Void, Void> {
             ReminderNotification.scheduleReminderNotification(contexts[0], alarms.get(i));
         }
 
+        db.close();
+
         return null;
     }
 }
