@@ -267,24 +267,22 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
     }
 
     /**
-     * Shows the date and time on which the reminder will be showed.
-     */
-    private void setReminderInfoTextView() {
-        Resources res = getResources();
-        this.mReminderInfoTextView.setText(String.format(res.getString(R.string.reminder_info), DateFormat.getDateInstance(DateFormat.LONG).format(this.mDateAndTime), DateFormat.getTimeInstance(DateFormat.SHORT).format(this.mDateAndTime)));
-    }
-
-    /**
      * onClickListener for the 'add reminder' button.
-     * Sends the reminder to saveReminderTask.
+     * Checks if at least the title and time is set.
+     * It sends the data to SaveReminderTask when this is true.
      * @param v The view where the request came from.
      */
     @Override
     public void onClick(View v) {
-        new SaveReminderTask().execute(new SaveReminderParams(this, this.mReminderTitle.getEditText().getText().toString(), this.mReminderText.getEditText().getText().toString(), this.mDateAndTime));
-
-        this.showToastOnTop(this, getString(R.string.notification_set_message));
+        if (this.mReminderTitle.getEditText().getText().toString().equals("") || this.mReminderTitle.getEditText().getText().toString().equals(" ")){
+            MainActivity.showToastOnTop(this, getString(R.string.please_set_title_message));
+        } else if (this.mDateAndTime == null) {
+            MainActivity.showToastOnTop(this, getString(R.string.please_set_time_message));
+        } else {
+            new SaveReminderTask().execute(new SaveReminderParams(this, this.mReminderTitle.getEditText().getText().toString(), this.mReminderText.getEditText().getText().toString(), this.mDateAndTime));
+            MainActivity.showToastOnTop(this, getString(R.string.reminder_set_message));
         }
+    }
 
     /**
      * Adds the given hours to the current time.
@@ -347,7 +345,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
     public static void showToastOnTop(Context context, String text){
         Toast toast= Toast.makeText(context,
                 text, Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 15);
+        toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 75);
         toast.show();
     }
 

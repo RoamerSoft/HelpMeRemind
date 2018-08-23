@@ -3,7 +3,7 @@
 
     <string name="reminder_input_title">Title</string>
     <string name="reminder_input_text">Note</string>
-    <string name="reminder_info_text"><i>Sample</i></string>
+    <string name="reminder_info_text"><i>Example</i></string>
 
     <string name="button_bar_title">Show reminder at:</string>
 
@@ -19,7 +19,10 @@
     <string name="channel_name">channel_name</string>
     <string name="channel_description">channel_description</string>
 
-    <string name="notification_set_message">Notification is set</string>
+    <string name="reminder_set_message">Reminder is set.</string>
+
+    <string name="please_set_time_message">Please set the reminder time.</string>
+    <string name="please_set_title_message">Please set at least the reminder title.</string>
 
     <string name="reminder_example_title">Reminder title</string>
     <string name="reminder_example_text">Reminder note</string>

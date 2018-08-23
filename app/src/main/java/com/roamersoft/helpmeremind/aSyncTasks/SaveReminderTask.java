@@ -27,9 +27,11 @@ public class SaveReminderTask extends AsyncTask<SaveReminderParams, Void, SaveRe
 
             Long id = db.alarmDao().insert(alarm);
 
-//            TODO: Database has to be closed.
+            SaveReminderWrapper saveReminderWrapper = new SaveReminderWrapper(SaveReminderParams[0].sContext, db.alarmDao().getById(id.intValue()));
 
-            return new SaveReminderWrapper(SaveReminderParams[0].sContext, db.alarmDao().getById(id.intValue()));
+            db.close();
+
+            return saveReminderWrapper;
     }
 
     @Override

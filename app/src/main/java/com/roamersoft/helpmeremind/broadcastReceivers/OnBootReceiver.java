@@ -14,7 +14,6 @@ public class OnBootReceiver extends BroadcastReceiver {
      */
     @Override
     public void onReceive(Context context, Intent intent) {
-//        TODO: check if dates are in future or past, when in past show notification directly and when in future use scheduleAllReminderTask.
         new RescheduleAllRemindersTask().execute(context);
     }
 }
