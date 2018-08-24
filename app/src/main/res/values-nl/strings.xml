@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Help Me Herinneren</string>
+
+    <string name="reminder_input_title">Titel</string>
+    <string name="reminder_input_text">Notitie</string>
+    <string name="reminder_info_text"><i>Voorbeeld herinnering</i></string>
+
+    <string name="button_bar_title">Herinner mij:</string>
+
+    <string name="button_bar_button1">Nu</string>
+    <string name="button_bar_button2">over 1 uur</string>
+    <string name="button_bar_button3">over 3 uur</string>
+    <string name="button_bar_button4">Specifiek</string>
+
+    <string name="add_reminder_button">Bevestigen</string>
+
+    <string name="channel_name">channel_name</string>
+    <string name="channel_description">channel_description</string>
+
+    <string name="reminder_set_message">De herinnering is ingesteld.</string>
+
+    <string name="please_set_time_message">Selecteer een tijd.</string>
+    <string name="please_set_title_message">Voeg minimaal een titel toe.</string>
+
+    <string name="reminder_example_title">Voorbeeld titel</string>
+    <string name="reminder_example_text">Voorbeeld notitie</string>
+
+</resources>

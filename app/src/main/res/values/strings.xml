@@ -3,9 +3,9 @@
 
     <string name="reminder_input_title">Title</string>
     <string name="reminder_input_text">Note</string>
-    <string name="reminder_info_text"><i>Example</i></string>
+    <string name="reminder_info_text"><i>Example reminder</i></string>
 
-    <string name="button_bar_title">Show reminder at:</string>
+    <string name="button_bar_title">Remind me at:</string>
 
     <string name="button_bar_button1">Now</string>
     <string name="button_bar_button2">1 Hour</string>
@@ -13,8 +13,6 @@
     <string name="button_bar_button4">Specific</string>
 
     <string name="add_reminder_button">Add Reminder</string>
-
-    <string name="reminder_info">The reminder is going to be showed on %1$s at %2$s</string>
 
     <string name="channel_name">channel_name</string>
     <string name="channel_description">channel_description</string>
@@ -24,7 +22,7 @@
     <string name="please_set_time_message">Please set the reminder time.</string>
     <string name="please_set_title_message">Please set at least the reminder title.</string>
 
-    <string name="reminder_example_title">Reminder title</string>
-    <string name="reminder_example_text">Reminder note</string>
+    <string name="reminder_example_title">Example title</string>
+    <string name="reminder_example_text">Example note</string>
 
 </resources>
