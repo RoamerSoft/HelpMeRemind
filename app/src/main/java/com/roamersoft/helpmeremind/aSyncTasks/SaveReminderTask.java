@@ -44,7 +44,6 @@ public class SaveReminderTask extends AsyncTask<SaveReminderParams, Void, SaveRe
     protected void onPostExecute(SaveReminderWrapper SaveReminderWrapper) {
         //schedule reminder
         ReminderNotification.scheduleReminderNotification(SaveReminderWrapper.sContext, SaveReminderWrapper.sAlarm);
-
     }
 
     /**
