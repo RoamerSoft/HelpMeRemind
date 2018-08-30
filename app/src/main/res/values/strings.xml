@@ -3,7 +3,7 @@
 
     <string name="reminder_input_title">Title</string>
     <string name="reminder_input_text">Note</string>
-    <string name="reminder_info_text"><i>Example reminder</i></string>
+    <string name="reminder_info_text"><i>Reminder example</i></string>
 
     <string name="button_bar_title">Remind me at:</string>
 

@@ -1,8 +1,12 @@
 package com.roamersoft.helpmeremind.aSyncTasks;
 
 import android.arch.persistence.room.Room;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 
+import com.roamersoft.helpmeremind.broadcastReceivers.OnBootReceiver;
 import com.roamersoft.helpmeremind.models.Alarm;
 import com.roamersoft.helpmeremind.database.AppDatabase;
 import com.roamersoft.helpmeremind.ReminderNotification;
@@ -31,6 +35,8 @@ public class SaveReminderTask extends AsyncTask<SaveReminderParams, Void, SaveRe
 
             db.close();
 
+            this.enableBroadcastReceiver(SaveReminderParams[0].sContext, OnBootReceiver.class);
+
             return saveReminderWrapper;
     }
 
@@ -39,5 +45,18 @@ public class SaveReminderTask extends AsyncTask<SaveReminderParams, Void, SaveRe
         //schedule reminder
         ReminderNotification.scheduleReminderNotification(SaveReminderWrapper.sContext, SaveReminderWrapper.sAlarm);
 
+    }
+
+    /**
+     * Enables the given broadcast receiver
+     * @param context The context to use.
+     * @param cls The class used by the broadcast receiver.
+     */
+    private void enableBroadcastReceiver(Context context, Class<?> cls) {
+        ComponentName receiver = new ComponentName(context, cls);
+        PackageManager pm = context.getPackageManager();
+        pm.setComponentEnabledSetting(receiver,
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                PackageManager.DONT_KILL_APP);
     }
 }
