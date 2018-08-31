@@ -5,11 +5,11 @@
     <string name="reminder_input_text">Note</string>
     <string name="reminder_info_text"><i>Reminder example</i></string>
 
-    <string name="button_bar_title">Remind me at:</string>
+    <string name="button_bar_title">Remind me:</string>
 
     <string name="button_bar_button1">Now</string>
-    <string name="button_bar_button2">1 Hour</string>
-    <string name="button_bar_button3">3 Hours</string>
+    <string name="button_bar_button2">At 1 Hour</string>
+    <string name="button_bar_button3">At 3 Hours</string>
     <string name="button_bar_button4">Specific</string>
 
     <string name="add_reminder_button">Add Reminder</string>

@@ -8,8 +8,8 @@
     <string name="button_bar_title">Herinner mij:</string>
 
     <string name="button_bar_button1">Nu</string>
-    <string name="button_bar_button2">over 1 uur</string>
-    <string name="button_bar_button3">over 3 uur</string>
+    <string name="button_bar_button2">Over 1 uur</string>
+    <string name="button_bar_button3">Over 3 uur</string>
     <string name="button_bar_button4">Specifiek</string>
 
     <string name="add_reminder_button">Bevestigen</string>
