@@ -2,17 +2,13 @@ package com.roamersoft.helpmeremind;
 
 import android.app.DialogFragment;
 import android.content.Context;
-import android.content.res.Resources;
-import android.icu.text.DateFormat;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -109,6 +105,17 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
                 changeReminderExampleTitle(s);
             }
         });
+
+        //mReminderTitleOnFocusChange
+        this.mReminderTitle.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    mReminderTitle.getEditText().setText(makeFirstLetterOfStringCapital(mReminderTitle.getEditText().getText().toString()));
+                }
+            }
+        });
+
         this.mReminderText.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -123,6 +130,16 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
             @Override
             public void afterTextChanged(Editable s) {
                 changeReminderExampleText(s);
+            }
+        });
+
+        //mReminderTitleOnFocusChange
+        this.mReminderText.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    mReminderText.getEditText().setText(makeFirstLetterOfStringCapital(mReminderText.getEditText().getText().toString()));
+                }
             }
         });
     }
@@ -371,5 +388,15 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
 
         return dateToReturn;
     }
-    
+
+    /**
+     * Returns the given string with the first letter capitalized.
+     * @param str The string to capitalized.
+     * @return The capitalized string.
+     */
+    public String makeFirstLetterOfStringCapital(String str) {
+        return str.substring(0, 1).toUpperCase() + str.substring(1);
+    }
+
+
 }
