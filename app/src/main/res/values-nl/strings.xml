@@ -25,4 +25,9 @@
     <string name="reminder_example_title">Voorbeeld titel</string>
     <string name="reminder_example_text">Voorbeeld notitie</string>
 
+    <string name="reminder_notification_touch_text">Swipe weg om te verwijderen.</string>
+    <string name="reminder_notification_deleted_text">Herinnering verwijderd.</string>
+
+
+
 </resources>

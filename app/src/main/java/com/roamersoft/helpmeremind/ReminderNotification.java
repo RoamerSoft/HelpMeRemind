@@ -39,7 +39,6 @@ public class ReminderNotification {
         this.createNotification();
     }
 
-
     /**
      * Create the NotificationChannel, but only on API 26+ because the NotificationChannel class is new and not in the support library
      */
@@ -60,17 +59,26 @@ public class ReminderNotification {
      * When no notification text is given, the notification will then only show the title.
      */
     private void createNotification(){
-        Intent notifyIntent = new Intent(this.rContext, NotificationPressedActivity.class);
+        Intent notifyPressedIntent = new Intent(this.rContext, NotificationPressedActivity.class);
+        Intent notifyDeletedIntent = new Intent(this.rContext, NotificationDeletedActivity.class);
 
-        notifyIntent.putExtra("mNotificationId", this.rNotificationId);
+        notifyPressedIntent.putExtra("mNotificationId", this.rNotificationId);
+        notifyDeletedIntent.putExtra("mNotificationId", this.rNotificationId);
 
         // Set the Activity to start in a new, empty task
-        notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+        notifyPressedIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+        notifyDeletedIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                 | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
         // Create the PendingIntent
-        PendingIntent notifyPendingIntent = PendingIntent.getActivity(
-                this.rContext, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT
+        PendingIntent notifyPressedPendingIntent = PendingIntent.getActivity(
+                this.rContext, 0, notifyPressedIntent, PendingIntent.FLAG_UPDATE_CURRENT
+        );
+
+        PendingIntent notifyDeletedPendingIntent = PendingIntent.getActivity(
+                this.rContext, 0, notifyDeletedIntent, PendingIntent.FLAG_UPDATE_CURRENT
         );
 
         if (rReminderText == null || rReminderText.equals("")) {
@@ -78,9 +86,8 @@ public class ReminderNotification {
                     .setSmallIcon(R.drawable.ic_notification_icon)
                     .setContentTitle(this.rReminderTitle)
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
-                    .setAutoCancel(true)
-                    .setContentIntent(notifyPendingIntent)
-                    .setDeleteIntent(notifyPendingIntent);
+                    .setContentIntent(notifyPressedPendingIntent)
+                    .setDeleteIntent(notifyDeletedPendingIntent);
 
         } else {
             this.rBuilder = new NotificationCompat.Builder(this.rContext, this.rChannelId)
@@ -88,9 +95,8 @@ public class ReminderNotification {
                     .setContentTitle(this.rReminderTitle)
                     .setContentText(this.rReminderText)
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
-                    .setAutoCancel(true)
-                    .setContentIntent(notifyPendingIntent)
-                    .setDeleteIntent(notifyPendingIntent);
+                    .setContentIntent(notifyPressedPendingIntent)
+                    .setDeleteIntent(notifyDeletedPendingIntent);
         }
     }
 

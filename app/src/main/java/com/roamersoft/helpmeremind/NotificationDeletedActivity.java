@@ -9,19 +9,20 @@ import com.roamersoft.helpmeremind.aSyncTasks.DeleteReminderParams;
 import com.roamersoft.helpmeremind.aSyncTasks.DeleteReminderTask;
 
 
-public class NotificationPressedActivity extends Activity {
-
-
+public class NotificationDeletedActivity extends Activity {
 
     /**
-     * SHow information on how to delete the notification after pressing it.
+     * Deletes reminder when notification is swiped and shows toast to inform.
      * @param savedInstanceState
      */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        MainActivity.showToastOnTop(this, getResources().getString(R.string.reminder_notification_touch_text));
+        Intent intent = getIntent();
+        new DeleteReminderTask().execute(new DeleteReminderParams(this, intent.getExtras().getInt("mNotificationId")));
+
+        MainActivity.showToastOnTop(this, getResources().getString(R.string.reminder_notification_deleted_text));
 
         finish();
     }

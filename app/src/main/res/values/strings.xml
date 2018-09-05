@@ -25,4 +25,8 @@
     <string name="reminder_example_title">Example title</string>
     <string name="reminder_example_text">Example note</string>
 
+    <string name="reminder_notification_touch_text">Swipe to delete.</string>
+    <string name="reminder_notification_deleted_text">Reminder deleted.</string>
+
+
 </resources>
